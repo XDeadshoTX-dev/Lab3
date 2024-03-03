@@ -1,1 +1,1 @@
-# Lab3
+Website, Django, Docker, Github Actions
