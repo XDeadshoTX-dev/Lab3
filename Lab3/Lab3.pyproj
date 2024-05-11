@@ -53,6 +53,7 @@
     <Folder Include="app\migrations\" />
     <Folder Include="app\static\" />
     <Folder Include="app\static\app\" />
+    <Folder Include="app\static\app\assets\" />
     <Folder Include="app\static\app\content\" />
     <Folder Include="app\static\app\fonts\" />
     <Folder Include="app\static\app\scripts\" />
@@ -62,6 +63,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
+    <Content Include="app\static\app\assets\favicon.ico" />
+    <Content Include="app\static\app\content\styles.css" />
+    <Content Include="app\static\app\scripts\scripts.js" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />
     <Content Include="app\static\app\content\bootstrap.css" />
