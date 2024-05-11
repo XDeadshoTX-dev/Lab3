@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views import View
+
+from app.models import Product
 """
 Definition of views.
 """
@@ -12,12 +14,22 @@ from django.http import HttpRequest
 def home(request):
     """Renders the home page."""
     assert isinstance(request, HttpRequest)
+    new_product = Product(
+            Product_name="Example Product",
+            Product_description="This is an example product created without a form.",
+            #Product_image="https://ih1.redbubble.net/image.5051273779.4416/bg,f8f8f8-flat,750x,075,f-pad,750x1000,f8f8f8.jpg", # link image
+            Product_image = "app/Product_images/Pineapple.jpg", # file from directory app/Product_images/{file}.{format}
+            Product_stars=4,
+            Product_available_quantity=100,
+            Product_single_price=9.99
+        )
     return render(
         request,
         'app/index.html',
         {
             'title':'Home Page',
             'year':datetime.now().year,
+            'product': new_product,
         }
     )
 
