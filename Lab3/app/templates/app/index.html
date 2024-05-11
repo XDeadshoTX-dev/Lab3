@@ -57,6 +57,15 @@
     <!-- Section-->
     <section class="py-5">
         <div>
+            <h1>{{ product.Product_name }}</h1>
+            <p>Description: {{ product.Product_description }}</p>
+            <!--<img src="{{ product.Product_image }}" alt="Product Image">--> <!--for link-->
+            <img src="{% static product.Product_image %}" alt="Product Image" /> <!--for file-->
+            <p>Stars: {{ product.Product_stars }}</p>
+            <p>Available Quantity: {{ product.Product_available_quantity }}</p>
+            <p>Single Price: ${{ product.Product_single_price }}</p>
+        </div>
+        <div>
             {% for i in "xxxxx" %}
             <h3>IOASDIOAIOSDIONASIODIOASIODIO</h3>
             {% endfor %}
