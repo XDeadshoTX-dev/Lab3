@@ -14,15 +14,15 @@ from django.http import HttpRequest
 class ProductsManager:
     def DeleteProducts():
         Product.objects.all().delete()
-        
-    def DeleteProduct(self, request, *args, **kwargs):
-        ...
 
     def GetProducts():
         products = Product.objects.all()
         for product in products:
             product.product_stars_range = range(product.Product_stars)
         return products
+    
+    def DeleteProduct(name):
+        Product.objects.filter(Product_name = name).delete()
     
     def AddProduct(name, description, image_url, image, stars, available_quantity, old_price, single_price):
             new_product = Product(
@@ -36,6 +36,13 @@ class ProductsManager:
             Product_single_price=single_price
             )
             new_product.save()
+            
+class ProductsManagerHTML():
+    def DeleteProductHTML(self, request, *args, **kwargs):
+        if request.method == "POST":
+            name = request.GET.get('product_name', None)
+            
+            ProductsManager.DeleteProduct(name)
     
     def AddProductHTML(self, request, *args, **kwargs):
         if request.method == "POST":
@@ -45,18 +52,10 @@ class ProductsManager:
             image = request.GET.get('product_image', None) # Directory must be in app/Product_images/file.jpg
             stars = request.GET.get('product_stars', None)
             available_quantity = request.GET.get('product_available_quantity', None)
+            old_price = request.GET.get('product_old_price', None)
             single_price = request.GET.get('product_single_price', None)
-
-            new_product = Product(
-            Product_name=name,
-            Product_description=description,
-            Product_image_url=image_url, # link image
-            Product_image=image, # file from directory app/Product_images/{file}.{format}
-            Product_stars=stars,
-            Product_available_quantity=available_quantity,
-            Product_single_price=single_price
-            )
-            new_product.save()
+            
+            ProductsManager.AddProduct(name, description, image_url, image, stars, available_quantity, old_price, single_price)
 
 def home(request):
     """Renders the home page."""
@@ -64,7 +63,6 @@ def home(request):
     #ProductsManager.DeleteProducts()
     #ProductsManager.AddProduct("Pineapple", "Pineapple description", None, "app/Product_images/Pineapple.jpg", 4, 142, 15.99, 9.99)
     #ProductsManager.AddProduct("Cactus", "Cactus description", "https://st.depositphotos.com/1004370/2187/i/450/depositphotos_21876019-stock-illustration-cactus.jpg", None, 2, 0, None, 20.3)
-    
     return render(
         request,
         'app/index.html',
