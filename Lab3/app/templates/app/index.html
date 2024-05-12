@@ -57,59 +57,68 @@
     <!-- Section-->
     <section class="py-5">
         <div>
-            <h1>Name product: {{ product.Product_name }}</h1>
-            <p>Description: {{ product.Product_description }}</p>
-            <!--<img src="{{ product.Product_image }}" alt="Product Image">--> <!--for link-->
-            <img src="{% static product.Product_image %}" alt="Product Image" /> <!--for file-->
-            <p>Stars: {{ product.Product_stars }}</p>
-            <p>Available Quantity: {{ product.Product_available_quantity }}</p>
-            <p>Single Price: ${{ product.Product_single_price }}</p>
-        </div>
-        <div>
             {% for i in "xxxxx" %}
-            <h3>IOASDIOAIOSDIONASIODIOASIODIO</h3>
+            <h3>Test iteration</h3>
             {% endfor %}
         </div>
         <!-- Form to send GET request to get_number view -->
         <form action="{% url 'get_number' %}" method="get">
-            <input type="text" name="number" placeholder="Enter a number">
+            <input type="text" name="number" placeholder="Enter a number (GET method)">
             <button type="submit">Get Number</button>
         </form>
         <form action="{% url 'post_name' %}" method="post">
-            {% csrf_token %}
-            <input type="text" name="name" placeholder="Enter a name">
+            {% csrf_token %} <!--For security-->
+            <input type="text" name="name" placeholder="Enter a name (POST method)">
             <button type="submit">Submit</button>
         </form>
         <div class="container px-4 px-lg-5 mt-5">
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                {% for i in "xxxxx" %}
+                <!--List of products-->
+                {% for product in available_products %}
                 <div class="col mb-5">
                     <div class="card h-100">
                         <!-- Sale badge-->
+                        {% if product.Product_available_quantity != 0 %}
                         <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
+                        {% endif %}
+                        {% if product.Product_available_quantity == 0 %}
+                        <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Not available</div>
+                        {% endif %}
                         <!-- Product image-->
-                        <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                        {% if product.Product_image_url %}
+                        <img class="card-img-top" src={{ product.Product_image_url }} alt="{{ product.Product_name }}" />
+                        {% endif %}
+
+                        {% if product.Product_image %}
+                        <img class="card-img-top" src="{% static product.Product_image %}" alt="{{ product.Product_name }}" />
+                        {% endif %}
                         <!-- Product details-->
                         <div class="card-body p-4">
                             <div class="text-center">
                                 <!-- Product name-->
-                                <h5 class="fw-bolder">Special Item</h5>
+                                <h5 class="fw-bolder">{{ product.Product_name }}</h5>
                                 <!-- Product reviews-->
                                 <div class="d-flex justify-content-center small text-warning mb-2">
+                                    {% for i in product.product_stars_range %}
                                     <div class="bi-star-fill"></div>
-                                    <div class="bi-star-fill"></div>
-                                    <div class="bi-star-fill"></div>
-                                    <div class="bi-star-fill"></div>
-                                    <div class="bi-star-fill"></div>
+                                    {% endfor %}
                                 </div>
                                 <!-- Product price-->
-                                <span class="text-muted text-decoration-line-through">$20.00</span>
-                                $18.00
+                                {% if product.Product_old_price != 0.0 and product.Product_old_price != None %}
+                                <span class="text-muted text-decoration-line-through">${{ product.Product_old_price }}</span>
+                                {% endif %}
+                                ${{ product.Product_single_price }}
                             </div>
                         </div>
                         <!-- Product actions-->
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            {% if product.Product_available_quantity != 0%}
                             <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+                            {% endif %}
+                            {% if product.Product_available_quantity == 0 %}
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Out of stock</a></div>
+                            {% endif %}
+                            
                         </div>
                     </div>
                 </div>

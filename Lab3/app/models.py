@@ -14,7 +14,7 @@ class Product(models.Model):
     Product_image = models.ImageField(upload_to='Product_images/', null=True, default=None)  # Product image (Directory must be in app/Product_images/file.jpg)
     Product_stars = models.IntegerField(default=0)  # Product stars (Integer)
     Product_available_quantity = models.IntegerField(default=0)  # Product available quantity (Integer)
-    Product_old_price = models.FloatField(default=0.0) # Product old price (Float)
+    Product_old_price = models.FloatField(default=0.0, null=True) # Product old price (Float)
     Product_single_price = models.FloatField(default=0.0)  # Product single price (Float)
 
     def __str__(self):

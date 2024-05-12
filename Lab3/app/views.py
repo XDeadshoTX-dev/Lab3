@@ -11,25 +11,67 @@ from datetime import datetime
 from django.shortcuts import render
 from django.http import HttpRequest
 
+class ProductsManager:
+    def DeleteProducts():
+        Product.objects.all().delete()
+        
+    def DeleteProduct(self, request, *args, **kwargs):
+        ...
+
+    def GetProducts():
+        products = Product.objects.all()
+        for product in products:
+            product.product_stars_range = range(product.Product_stars)
+        return products
+    
+    def AddProduct(name, description, image_url, image, stars, available_quantity, old_price, single_price):
+            new_product = Product(
+            Product_name=name,
+            Product_description=description,
+            Product_image_url=image_url, # link image
+            Product_image=image, # file from directory app/Product_images/{file}.{format}
+            Product_stars=stars,
+            Product_available_quantity=available_quantity,
+            Product_old_price=old_price,
+            Product_single_price=single_price
+            )
+            new_product.save()
+    
+    def AddProductHTML(self, request, *args, **kwargs):
+        if request.method == "POST":
+            name = request.GET.get('product_name', None)
+            description = request.GET.get('product_description', None)
+            image_url = request.GET.get('product_image_url', None)
+            image = request.GET.get('product_image', None) # Directory must be in app/Product_images/file.jpg
+            stars = request.GET.get('product_stars', None)
+            available_quantity = request.GET.get('product_available_quantity', None)
+            single_price = request.GET.get('product_single_price', None)
+
+            new_product = Product(
+            Product_name=name,
+            Product_description=description,
+            Product_image_url=image_url, # link image
+            Product_image=image, # file from directory app/Product_images/{file}.{format}
+            Product_stars=stars,
+            Product_available_quantity=available_quantity,
+            Product_single_price=single_price
+            )
+            new_product.save()
+
 def home(request):
     """Renders the home page."""
     assert isinstance(request, HttpRequest)
-    new_product = Product(
-            Product_name="Pineapple",
-            Product_description="This is an example product created without a form.",
-            #Product_image="https://ih1.redbubble.net/image.5051273779.4416/bg,f8f8f8-flat,750x,075,f-pad,750x1000,f8f8f8.jpg", # link image
-            Product_image = "app/Product_images/Pineapple.jpg", # file from directory app/Product_images/{file}.{format}
-            Product_stars=4,
-            Product_available_quantity=100,
-            Product_single_price=9.99
-        )
+    #ProductsManager.DeleteProducts()
+    #ProductsManager.AddProduct("Pineapple", "Pineapple description", None, "app/Product_images/Pineapple.jpg", 4, 142, 15.99, 9.99)
+    #ProductsManager.AddProduct("Cactus", "Cactus description", "https://st.depositphotos.com/1004370/2187/i/450/depositphotos_21876019-stock-illustration-cactus.jpg", None, 2, 0, None, 20.3)
+    
     return render(
         request,
         'app/index.html',
         {
             'title':'Home Page',
             'year':datetime.now().year,
-            'product': new_product,
+            'available_products': ProductsManager.GetProducts(),
         }
     )
 
