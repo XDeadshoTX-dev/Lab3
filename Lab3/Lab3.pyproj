@@ -69,7 +69,6 @@
     <Content Include="app\static\app\content\styles.css" />
     <Content Include="app\static\app\Product_images\Pineapple.jpg" />
     <Content Include="app\static\app\scripts\scripts.js" />
-    <Content Include="libman.json" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />
     <Content Include="app\static\app\content\bootstrap.css" />
