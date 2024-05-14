@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views import View
+import re
 
 from app.models import Product
 """
@@ -21,6 +22,10 @@ class ProductsManager:
             product.product_stars_range = range(product.Product_stars)
         return products
     
+    def SearchProduct(name):
+        products = Product.objects.filter(Product_name__regex=r'^.*{}.*$'.format(re.escape(name)))
+        return products
+        
     def DeleteProduct(name):
         Product.objects.filter(Product_name = name).delete()
     
@@ -63,6 +68,7 @@ def home(request):
     #ProductsManager.DeleteProducts()
     #ProductsManager.AddProduct("Pineapple", "Pineapple description", None, "app/Product_images/Pineapple.jpg", 4, 142, 15.99, 9.99)
     #ProductsManager.AddProduct("Cactus", "Cactus description", "https://st.depositphotos.com/1004370/2187/i/450/depositphotos_21876019-stock-illustration-cactus.jpg", None, 2, 0, None, 20.3)
+    #ProductsManager.AddProduct("Apple Pro Plus Ultra Max 1024gb", "Apple description", "https://static.wikia.nocookie.net/minecraft/images/0/0c/GoldenApple.gif/revision/latest/scale-to-width/360?cb=20190916004559", None, 5, 64, None, 199.99)
     return render(
         request,
         'app/index.html',
