@@ -62,21 +62,6 @@
     </header>
     <!-- Section-->
     <section class="py-5">
-        <div>
-            {% for i in "xxxxx" %}
-            <h3>Test iteration</h3>
-            {% endfor %}
-        </div>
-        <!-- Form to send GET request to get_number view -->
-        <form action="{% url 'get_number' %}" method="get">
-            <input type="text" name="number" placeholder="Enter a number (GET method)">
-            <button type="submit">Get Number</button>
-        </form>
-        <form action="{% url 'post_name' %}" method="post">
-            {% csrf_token %} <!--For security-->
-            <input type="text" name="name" placeholder="Enter a name (POST method)">
-            <button type="submit">Submit</button>
-        </form>
         <div class="container px-4 px-lg-5 mt-5">
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                 <!--List of products-->
@@ -124,7 +109,6 @@
                             {% if product.Product_available_quantity == 0 %}
                             <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Out of stock</a></div>
                             {% endif %}
-                            
                         </div>
                     </div>
                 </div>
