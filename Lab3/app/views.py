@@ -22,34 +22,91 @@ class ProductsManager:
             product.product_stars_range = range(product.Product_stars)
         return products
     
-    def SearchProduct(name):
-        products = Product.objects.filter(Product_name__regex=r'^.*{}.*$'.format(re.escape(name)))
-        return products
+    def SearchProducts(name):
+        if name:
+            products = Product.objects.filter(Product_name__regex=r'^.*{}.*$'.format(re.escape(name)))
+            return products
+        else:
+            # Return empty queryset if name is not provided
+            return Product.objects.none()
         
     def DeleteProduct(name):
-        Product.objects.filter(Product_name = name).delete()
+        if name:
+            Product.objects.filter(Product_name=name).delete()
+        else:
+            # Return error message if name is not provided
+            return JsonResponse({"status": "error", "message": "Product name must be provided"})
     
     def AddProduct(name, description, image_url, image, stars, available_quantity, old_price, single_price):
+        # Perform validation checks on required fields
+        if name and description and stars and available_quantity and single_price:
+            # Convert stars, available_quantity, and single_price to the correct data types
+            try:
+                stars = int(stars)
+                available_quantity = int(available_quantity)
+                single_price = float(single_price)
+            except (ValueError, TypeError):
+                # Return error response if conversion fails
+                return JsonResponse({"status": "error", "message": "Invalid input data types"})
+
+            # Check if stars and available_quantity are non-negative
+            if stars < 0 or available_quantity < 0:
+                return JsonResponse({"status": "error", "message": "Stars and available quantity must be non-negative"})
+            
+            # Check if single_price is positive
+            if single_price <= 0:
+                return JsonResponse({"status": "error", "message": "Single price must be positive"})
+                
+            # Add the product
             new_product = Product(
-            Product_name=name,
-            Product_description=description,
-            Product_image_url=image_url, # link image
-            Product_image=image, # file from directory app/Product_images/{file}.{format}
-            Product_stars=stars,
-            Product_available_quantity=available_quantity,
-            Product_old_price=old_price,
-            Product_single_price=single_price
+                Product_name=name,
+                Product_description=description,
+                Product_image_url=image_url, # link image
+                Product_image=image, # file from directory app/Product_images/{file}.{format}
+                Product_stars=stars,
+                Product_available_quantity=available_quantity,
+                Product_old_price=old_price,
+                Product_single_price=single_price
             )
             new_product.save()
+            # Return success response
+            return JsonResponse({"status": "success", "message": "Product added successfully"})
+        else:
+            # Return error response if any required field is missing
+            return JsonResponse({"status": "error", "message": "All required fields must be provided"})    
+    
             
-class ProductsManagerHTML():
-    def DeleteProductHTML(self, request, *args, **kwargs):
+class SearchProductsHTML(View):
+    def get(self, request, *args, **kwargs):
+        if request.method == "GET":
+            name = request.GET.get("search_request", None)
+            if name:
+                products = ProductsManager.SearchProducts(name)
+                return render(
+                    request,
+                    'app/index.html',
+                    {
+                        'title': 'Result search',
+                        'year': datetime.now().year,
+                        'available_products': products,
+                    }
+                )
+
+class DeleteProductHTML(View):
+    def post(self, request, *args, **kwargs):
         if request.method == "POST":
             name = request.GET.get('product_name', None)
+            if name:
+                # Delete the product
+                ProductsManager.DeleteProduct(name)
+                # Return success response
+                return JsonResponse({"status": "success", "message": "Product deleted successfully"})
+            else:
+                # Return error response if product name is missing
+                return JsonResponse({"status": "error", "message": "Product name is required"})
             
-            ProductsManager.DeleteProduct(name)
-    
-    def AddProductHTML(self, request, *args, **kwargs):
+class AddProductHTML(View):
+    def post(self, request, *args, **kwargs):
         if request.method == "POST":
             name = request.GET.get('product_name', None)
             description = request.GET.get('product_description', None)
@@ -61,6 +118,7 @@ class ProductsManagerHTML():
             single_price = request.GET.get('product_single_price', None)
             
             ProductsManager.AddProduct(name, description, image_url, image, stars, available_quantity, old_price, single_price)
+
 
 def home(request):
     """Renders the home page."""
