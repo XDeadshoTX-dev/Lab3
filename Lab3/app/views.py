@@ -182,3 +182,15 @@ def about(request):
             'year':datetime.now().year,
         }
     )
+
+def description_view(request):
+    """Renders the home page."""
+    assert isinstance(request, HttpRequest)
+    return render(
+        request,
+        'app/description.html',
+        {
+            'title':'Description product',
+            'year':datetime.now().year,
+        }
+    )
