@@ -30,5 +30,5 @@ urlpatterns = [
     path('get_number/', views.GetNumberView.as_view(), name='get_number'),
     path('post_name/', views.PostNameView.as_view(), name='post_name'),
     path('searchProducts/', views.SearchProductsHTML.as_view(), name='searchProducts'),
-    path('description/', views.description_view, name='description'),
+    path('description/<int:product_id>', views.description_view, name='description'),
 ]

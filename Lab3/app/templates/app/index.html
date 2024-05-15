@@ -77,13 +77,13 @@
                         {% endif %}
                         <!-- Product image-->
                         {% if product.Product_image_url %}
-                        <a href="{% url "description" %}">
+                        <a href="{% url "description" product_id=product.Product_id %}">
                             <img class="card-img-top" src={{ product.Product_image_url }} alt="{{ product.Product_name }}" />
                         </a>
                         {% endif %}
 
                         {% if product.Product_image %}
-                        <a href="{% url "description" %}">
+                        <a href="{% url "description" product_id=product.Product_id %}">
                             <img class="card-img-top" src="{% static product.Product_image %}" alt="{{ product.Product_name }}" />
                         </a>
                         {% endif %}

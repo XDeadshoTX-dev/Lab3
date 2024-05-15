@@ -183,14 +183,16 @@ def about(request):
         }
     )
 
-def description_view(request):
+def description_view(request, product_id):
     """Renders the home page."""
     assert isinstance(request, HttpRequest)
+    product = Product.objects.get(Product_id=product_id)
     return render(
         request,
         'app/description.html',
         {
             'title':'Description product',
             'year':datetime.now().year,
+            'product': product,
         }
     )
