@@ -52,9 +52,16 @@
     </nav>
     <section class="py-5">
         <div class="product-info">
+            {% if product.Product_image_url %}
             <div class="product-image">
-                <img src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="Product Image" />
+                <img src={{ product.Product_image_url }} alt="{{ product.Product_name }}" />
             </div>
+            {% endif %}
+            {% if product.Product_image %}
+            <div class="product-image">
+                <img src="{% static product.Product_image %}" alt="{{ product.Product_name }}" />
+            </div>
+            {% endif %}
             <div class="product-description">
                 <h2>{{ product }}</h2>
                 <p>{{ product.Product_description }}</p>
