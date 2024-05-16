@@ -2,6 +2,7 @@
 from django.contrib import admin
 from .models import Product
 
+
 class ProductAdmin(admin.ModelAdmin):
     list_display = \
     ('Product_name', 'Product_stars', 'Product_available_quantity',
