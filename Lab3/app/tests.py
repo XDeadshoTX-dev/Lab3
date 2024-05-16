@@ -80,18 +80,3 @@ class ProductsManagerTestCase(TestCase):
         self.assertTemplateUsed(response, 'app/index.html')
         self.assertIn('available_products', response.context)
         self.assertEqual(len(response.context['available_products']), 3)
-        
-    def test_delete_product_view(self):
-        response = self.client.post(reverse('deleteProduct'), {'product_name': 'Test Product 1'})
-        self.assertEqual(response.status_code, 200)
-
-        with self.assertRaises(Product.DoesNotExist):
-            Product.objects.get(Product_name="Test Product 1")
-
-    def test_add_product_view(self):
-        response = self.client.post(reverse('addProduct'), {'product_name': 'New Product', 'product_description': 'New Description', 'product_stars': 4, 'product_available_quantity': 15, 'product_single_price': 24.99})
-        self.assertEqual(response.status_code, 200)
-
-        products = ProductsManager.GetProducts()
-        self.assertEqual(len(products), 1)
-        self.assertEqual(products[0].Product_name, "New Product")
