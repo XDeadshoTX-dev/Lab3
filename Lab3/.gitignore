@@ -18,6 +18,7 @@ mono_crash.*
 
 # Build results
 Lab3/env
+Lab3/inv1
 [Dd]ebug/
 [Dd]ebugPublic/
 [Rr]elease/
