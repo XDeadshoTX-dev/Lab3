@@ -28,5 +28,7 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
     path('admin/', admin.site.urls),
     path('searchProducts/', views.SearchProductsHTML.as_view(), name='searchProducts'),
+    path('addProduct/', views.AddProductHTML.as_view(), name='addProduct'),
+    path('deleteProduct/', views.DeleteProductHTML.as_view(), name='deleteProduct'),
     path('description/<int:product_id>', views.description_view, name='description'),
 ]
