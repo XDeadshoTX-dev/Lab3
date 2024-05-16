@@ -31,4 +31,5 @@ urlpatterns = [
     path('addProduct/', views.AddProductHTML.as_view(), name='addProduct'),
     path('deleteProduct/', views.DeleteProductHTML.as_view(), name='deleteProduct'),
     path('description/<int:product_id>', views.description_view, name='description'),
+    path('register/', views.register, name='register'),
 ]
