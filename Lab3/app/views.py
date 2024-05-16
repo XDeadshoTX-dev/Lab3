@@ -9,7 +9,9 @@ Definition of views.
 """
 
 from datetime import datetime
-from django.shortcuts import render
+from django.contrib.auth import login, authenticate
+from app.forms import RegisterForm
+from django.shortcuts import render, redirect
 from django.http import HttpRequest
 
 class ProductsManager:
@@ -176,3 +178,18 @@ def description_view(request, product_id):
             'product': product,
         }
     )
+
+def register(request):
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            user.refresh_from_db()
+            user.save()
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=user.username, password=raw_password)
+            login(request, user)
+            return redirect('home')
+    else:
+        form = RegisterForm()
+    return render(request, 'app/register.html', {'form': form, 'title': 'Register', 'year': datetime.now().year})
