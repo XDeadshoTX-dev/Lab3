@@ -17,6 +17,7 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: "3.12"
+          
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
@@ -24,6 +25,7 @@ jobs:
           pip install python-dotenv
           pip install django
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          
       - name: Test with Django
         run: |
           cd Lab3
@@ -35,7 +37,14 @@ jobs:
         run: |
           cd Lab3
           docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+          
       - name: Build and run Docker Compose
         run: |
           cd Lab3
           docker-compose up --build -d
+          
+      - name: Run Docker Compose
+        run: docker-compose up --abort-on-container-exit
+
+      - name: Show Docker Compose logs
+        run: docker-compose logs
