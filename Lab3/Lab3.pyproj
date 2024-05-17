@@ -68,6 +68,9 @@
     <Folder Include="Lab3\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include=".env">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include=".gitignore" />
     <Content Include="app\static\app\assets\favicon.ico" />
     <Content Include="app\static\app\content\description.css" />
