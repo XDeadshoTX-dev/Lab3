@@ -1,7 +1,18 @@
-FROM python:3.12
-ENV PYTHONUNBUFFERED 1
-WORKDIR /code
-COPY requirements.txt /code/
+FROM python:3.9-slim
+
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /usr/src/app
+
+COPY requirements.txt .
+
 RUN pip install --no-cache-dir -r requirements.txt
-COPY . /code/
-ENTRYPOINT ["python", "manage.py", "runserver", "172.17.0.1:8080"]
+
+COPY . .
+
+ENV DJANGO_SETTINGS_MODULE=Lab3.settings
+
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
