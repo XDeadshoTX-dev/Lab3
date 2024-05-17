@@ -28,6 +28,8 @@ jobs:
 
       - name: Test with Django
         run: python Lab3/manage.py test
+        env:
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
 
       - name: Build the Docker image
         run: docker build . --file Lab3/Dockerfile --tag my-image-name:$(date +%s)
