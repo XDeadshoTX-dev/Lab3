@@ -4,4 +4,4 @@ WORKDIR /code
 COPY requirements.txt /code/
 RUN pip install --no-cache-dir -r requirements.txt
 COPY . /code/
-ENTRYPOINT ["python", "manage.py", "runserver", "localhost:8080"]
+ENTRYPOINT ["python", "manage.py", "runserver", "172.17.0.1:8080"]
