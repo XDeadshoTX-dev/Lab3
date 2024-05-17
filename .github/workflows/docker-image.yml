@@ -25,7 +25,8 @@ jobs:
           pip install python-dotenv
           pip install django
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-
+      - name: Set environment variables
+        run: echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> $GITHUB_ENV
       - name: Test with Django
         run: |
           cd Lab3
