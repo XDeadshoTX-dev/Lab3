@@ -40,6 +40,9 @@
     <Compile Include="app\views.py" />
     <Compile Include="app\__init__.py" />
     <Compile Include="app\migrations\__init__.py" />
+    <Compile Include="Dockerfile">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Lab3\admin.py" />
     <Compile Include="Lab3\my_secret.py">
       <SubType>Code</SubType>
