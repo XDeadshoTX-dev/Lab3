@@ -44,9 +44,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Lab3\admin.py" />
-    <Compile Include="Lab3\my_secret.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="manage.py" />
     <Compile Include="Lab3\__init__.py" />
     <Compile Include="Lab3\settings.py" />
