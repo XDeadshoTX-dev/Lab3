@@ -24,7 +24,7 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: Test with Django
-        run: python manage.py test
+        run: python ./Lab3/manage.py test
 
       - name: Build the Docker image
         run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
