@@ -35,3 +35,7 @@ jobs:
         run: |
           cd Lab3
           docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      - name: Build and run Docker Compose
+        run: |
+          cd Lab3
+          docker-compose up --build -d
