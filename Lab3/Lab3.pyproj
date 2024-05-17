@@ -71,6 +71,7 @@
     <Content Include="app\static\app\Product_images\Pineapple.jpg" />
     <Content Include="app\static\app\scripts\scripts.js" />
     <Content Include="app\templates\app\description.html" />
+    <Content Include="app\templates\app\register.html" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />
     <Content Include="app\static\app\content\bootstrap.css" />
