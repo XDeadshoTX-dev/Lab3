@@ -17,15 +17,25 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: "3.12"
-
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
+          python -m pip install Pillow
+          pip install python-dotenv
           pip install django
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-
       - name: Test with Django
-        run: python Lab3/manage.py test
+        run: |
+          cd Lab3
+          python manage.py test
+        env:
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
 
       - name: Build the Docker image
-        run: docker build . --file Lab3/Dockerfile --tag my-image-name:$(date +%s)
+        run: |
+          cd Lab3
+          docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      - name: Build and run Docker Compose
+        run: |
+          cd Lab3
+          docker-compose up --build -d
