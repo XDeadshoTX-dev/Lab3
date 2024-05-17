@@ -47,6 +47,8 @@ jobs:
         run: |
           cd Lab3
           docker-compose up --abort-on-container-exit
+        env:
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
 
       - name: Show Docker Compose logs
         run: |
