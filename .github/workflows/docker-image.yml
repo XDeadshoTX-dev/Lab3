@@ -44,7 +44,11 @@ jobs:
           docker-compose up --build -d
           
       - name: Run Docker Compose
-        run: docker-compose up --abort-on-container-exit
+        run: |
+          cd Lab3
+          docker-compose up --abort-on-container-exit
 
       - name: Show Docker Compose logs
-        run: docker-compose logs
+        run: |
+          cd Lab3
+          docker-compose logs
