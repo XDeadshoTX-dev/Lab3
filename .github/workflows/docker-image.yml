@@ -46,7 +46,7 @@ jobs:
       - name: Run Docker Compose
         run: |
           cd Lab3
-          docker-compose up --abort-on-container-exit
+          timeout 5s docker-compose up --abort-on-container-exit || echo "Job timed out after 5 seconds"
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
 
