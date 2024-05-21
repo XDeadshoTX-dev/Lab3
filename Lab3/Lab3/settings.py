@@ -12,7 +12,10 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 import posixpath
+from threading import local
 from dotenv import load_dotenv
+import django_heroku
+import dj_database_url
 
 load_dotenv()
 
@@ -114,3 +117,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 STATIC_URL = '/static/'
 STATIC_ROOT = posixpath.join(*(BASE_DIR.split(os.path.sep) + ['static']))
+django_heroku.settings(locals())

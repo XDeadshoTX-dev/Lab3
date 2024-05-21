@@ -1,6 +1,7 @@
 asgiref
 colorama
 Django
+django_heroku
 gunicorn
 iniconfig
 Jinja2
