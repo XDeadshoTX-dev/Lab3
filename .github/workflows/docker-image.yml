@@ -54,3 +54,4 @@ jobs:
           heroku_app_name: "websitedjango"
           heroku_email: "mytestneo@gmail.com"
           branch: "master"
+          dontuseforce: false
