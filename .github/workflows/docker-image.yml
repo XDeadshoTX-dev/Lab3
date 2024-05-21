@@ -55,8 +55,3 @@ jobs:
         run: |
           cd Lab3
           docker-compose logs
-      - uses: akhileshns/heroku-deploy@v3.13.15
-        with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "websitedjango"
-          heroku_email: "mytestneo@gmail.com"
