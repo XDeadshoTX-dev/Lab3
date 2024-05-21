@@ -12,7 +12,7 @@ class Product(models.Model):
     Product_name = models.CharField(max_length=100, default="Unknown product")  # Product name (String)
     Product_description = models.TextField(default="Unknown description")  # Product description (String)
     Product_image_url = models.URLField(null=True, blank=True, default=None)  # Product URL image (url)
-    Product_image = models.ImageField(upload_to='Product_images/', null=True, blank=True, default=None)  # Product image (file)
+    Product_image = models.ImageField(upload_to='app\\static\\app\\Product_images\\', null=True, blank=True, default=None)  # Product image (file)
     Product_stars = models.IntegerField(default=0)  # Product stars (Integer)
     Product_available_quantity = models.IntegerField(default=0)  # Product available quantity (Integer)
     Product_old_price = models.FloatField(default=0.0, null=True)  # Product old price (Float)
