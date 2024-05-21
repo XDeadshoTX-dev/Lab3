@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 import posixpath
-from threading import local
 from dotenv import load_dotenv
 import django_heroku
 import dj_database_url
