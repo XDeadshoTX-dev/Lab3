@@ -10,6 +10,6 @@ jobs:
       - uses: everlytic/branch-merge@1.1.2
         with:
           github_token: ${{ secrets.TOKEN }}
-          source_ref: 'master'
-          target_branch: 'backend'
+          source_ref: 'backend'
+          target_branch: 'master'
           commit_message_template: '[Automated] Merged {source_ref} into target {target_branch}'
