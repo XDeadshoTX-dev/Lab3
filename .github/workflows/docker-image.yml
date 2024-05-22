@@ -1,4 +1,4 @@
-name: Docker Image CI and tests
+name: Docker Image, Docker-Compose
 
 on:
   push:
