@@ -7,6 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Tests
+        run: |
+          cd Lab3
+          python manage.py test
       - uses: everlytic/branch-merge@1.1.2
         with:
           github_token: ${{ secrets.TOKEN }}
