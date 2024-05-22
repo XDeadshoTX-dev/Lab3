@@ -1,7 +1,8 @@
 asgiref
 colorama
 Django
-django_heroku
+django-heroku
+dj-database-url
 gunicorn
 iniconfig
 Jinja2
@@ -10,9 +11,12 @@ packaging
 pillow
 pip
 pluggy
+psycopg2
 pytest
 pytest-html
 pytest-metadata
 python-dotenv
 sqlparse
+typing_extensions
 tzdata
+whitenoise
