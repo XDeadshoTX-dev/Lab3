@@ -1,4 +1,4 @@
-name: Docker Image CI and tests
+name: Deploy in Heroku
 
 on:
   push:
