@@ -4,7 +4,7 @@ on:
   push:
     branches: [ "backend" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "backend" ]
 
 jobs:
   build:
@@ -20,5 +20,4 @@ jobs:
           
       - name: merge-to-master
         run: |
-          git checkout -b master
-          git merge backend
+          git merge master
