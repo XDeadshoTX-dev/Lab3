@@ -20,5 +20,4 @@ jobs:
 
       - name: merge-to-master
         run: |
-          git checkout -b backend
-          git merge master
+          git merge origin/master
