@@ -1,16 +1,17 @@
-name: Merge branch with labeled
+name: Merge any release branch to uat
 on:
-  pull_request:
-    types: [labeled]
+  push:
+    branches:
+      - "backend"
 jobs:
   merge-branch:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
 
-      - name: Merge by labeled
+      - name: Merge staging -> uat
         uses: devmasx/merge-branch@master
         with:
-          label_name: 'merged in develop'
-          target_branch: 'develop-backend'
+          type: now
+          target_branch: uat
           github_token: ${{ secrets.TOKEN }}
