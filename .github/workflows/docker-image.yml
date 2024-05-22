@@ -20,5 +20,5 @@ jobs:
           
       - name: Merge backend into master
         run: |
-          git checkout master
-          git merge backend
+          git checkout backend
+          git merge master
