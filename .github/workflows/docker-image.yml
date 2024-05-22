@@ -17,7 +17,34 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: "3.12"
-
-      - name: merge-to-master
+          
+      - name: Install dependencies
         run: |
-          git merge backend
+          python -m pip install --upgrade pip
+          python -m pip install Pillow
+          python -m pip install django-heroku
+          pip install python-dotenv
+          pip install django
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Build the Docker image
+        run: |
+          cd Lab3
+          docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+          
+      - name: Build and run Docker Compose
+        run: |
+          cd Lab3
+          docker-compose up --build -d
+          
+      - name: Run Docker Compose
+        run: |
+          cd Lab3
+          timeout 30s docker-compose up --abort-on-container-exit || echo "Job timed out after 30 seconds"
+        env:
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+
+      - name: Show Docker Compose logs
+        run: |
+          cd Lab3
+          docker-compose logs
