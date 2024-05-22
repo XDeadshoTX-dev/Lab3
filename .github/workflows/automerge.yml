@@ -25,7 +25,7 @@ jobs:
       - name: Tests
         run: |
           cd Lab3
-          python manage.py test
+          python3 manage.py test
           
       - uses: everlytic/branch-merge@1.1.2
         with:
